@@ -1,4 +1,6 @@
-hybrid-hour-backend/
+
+```
+backend/
 ├── main.py                 # App entry point, middleware, & router inclusion
 ├── deps.py                 # FastAPI dependencies (get_db, get_current_user)
 ├── auth.py                 # JWT token logic & authentication flow
@@ -44,3 +46,4 @@ hybrid-hour-backend/
 │
 └── migrations/             # THE HISTORY: Alembic Versions
     └── versions/           # Individual .py migration files
+```
