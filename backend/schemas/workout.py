@@ -23,7 +23,7 @@ class Focus(str, Enum):
 class WorkoutStep(BaseModel):
     name: str
     duration_mins: int = Field(..., ge=1, le=60)
-    intensity_factor: float = Field(..., ge=0.1, le=1.5)
+    intensity_factor: float = Field(..., ge=0, le=1.5)
     description: Optional[str] = None
 
 class WorkoutBlock(BaseModel):

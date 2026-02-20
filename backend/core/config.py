@@ -12,6 +12,11 @@ class Settings(BaseSettings):
     DATABASE_URL: str 
     GROQ_API_KEY: str
 
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7  
+    ALGORITHM: str = "HS256"
+
+
     # 3. SECURITY
     # Change ["*"] to your React URL (http://localhost:5173) later
     BACKEND_CORS_ORIGINS: List[str] = ["*"] 
