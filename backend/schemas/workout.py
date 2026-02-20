@@ -1,6 +1,8 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Any
 from pydantic import BaseModel, Field, model_validator
+from api.services.tss_calc import calculate_complex_tss
+import uuid
 
 class Modality(str, Enum):
     RUNNING = "Running"
@@ -42,15 +44,31 @@ class HybridWorkoutCreate(HybridWorkoutBase):
     pass
 
 class HybridWorkoutRead(HybridWorkoutBase):
-    """Includes calculated fields for the Frontend"""
-    id: str
+    id: uuid.UUID # Changed from str to uuid.UUID to match our models
     calculated_tss: float
 
     @model_validator(mode='before')
     @classmethod
-    def compute_tss(cls, data: any):
-        # Logic to be implemented in your tss_calc.py service
-        # This allows the API to return the TSS dynamically
+    def compute_tss(cls, data: Any) -> Any:
+        """
+        If the data coming from the DB/API doesn't have a TSS, 
+        or if we want to verify it, we calculate it here.
+        """
+        # When coming from SQLAlchemy 'from_attributes', 'data' might be an object
+        structure = getattr(data, "structure", None) or data.get("structure")
+        modality = getattr(data, "modality", None) or data.get("modality")
+
+        if structure and modality:
+            # We use our shared service logic
+            computed = calculate_complex_tss(structure, modality)
+            
+            # If the data is a dict (from API input)
+            if isinstance(data, dict):
+                data["calculated_tss"] = computed
+            # If it's an object (from DB) we just ensure the field matches
+            else:
+                setattr(data, "calculated_tss", computed)
+                
         return data
 
     class Config:
