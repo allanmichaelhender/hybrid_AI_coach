@@ -1,29 +1,34 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
 from core import security
 from models.user import User
 from schemas.user import UserCreate
+import uuid
 
-def get_by_username(db: Session, username: str):
-    return db.query(User).filter(User.username == username).first()
+async def get_by_username(db: AsyncSession, username: str):
+    # Modern SQLAlchemy 2.0 Async Select
+    result = await db.execute(select(User).filter(User.username == username))
+    return result.scalars().first()
 
-def create(db: Session, *, obj_in: UserCreate):
+async def create(db: AsyncSession, *, obj_in: UserCreate):
     db_obj = User(
         username=obj_in.username,
         hashed_password=security.get_password_hash(obj_in.password)
     )
     db.add(db_obj)
-    db.commit()
-    db.refresh(db_obj)
+    await db.commit()      # MUST BE AWAITED
+    await db.refresh(db_obj) # MUST BE AWAITED
     return db_obj
 
-def authenticate(db: Session, *, username: str, password: str):
-    user = get_by_username(db, username=username)
+async def authenticate(db: AsyncSession, *, username: str, password: str):
+    user = await get_by_username(db, username=username) # Await the helper
     if not user:
         return None
     if not security.verify_password(password, user.hashed_password):
         return None
     return user
 
-
-def get(db: Session, id: int):
-    return db.query(User).filter(User.id == id).first()
+async def get_user_by_id(db: AsyncSession, id: uuid.UUID):
+    # Updated to UUID since we fixed the ID issue
+    result = await db.execute(select(User).filter(User.id == id))
+    return result.scalars().first()

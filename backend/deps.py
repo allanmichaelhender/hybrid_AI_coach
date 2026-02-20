@@ -1,5 +1,5 @@
 from typing import Generator
-from db.session import SessionLocal
+from database.session import AsyncSessionLocal
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 import jwt
@@ -10,12 +10,9 @@ import models
 from schemas.token import TokenPayload
 from models.user import User
 
-def get_db() -> Generator:
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
+async def get_db():
+    async with AsyncSessionLocal() as session:
+        yield session
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login/access-token")
