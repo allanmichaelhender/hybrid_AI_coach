@@ -1,34 +1,37 @@
 from fastapi import APIRouter, Depends
 from agents.nodes.graph import app as agent_app
-from schemas.workout import HybridWorkoutRead # For response validation
-from typing import List, Any
-import uuid
+from typing import List
+from schemas.calendar import CalendarRequest, CalendarUpdateResponse  # 👈 NEW
 
 router = APIRouter()
 
-@router.post("/suggest")
+
+@router.post(
+    "/suggest", response_model=CalendarUpdateResponse
+)  # 👈 Add response validation
 async def ai_suggest_plan(
-    # We use a dict here for the test, but later we'll use a strict Pydantic model
-    plan_data: dict 
+    plan_data: CalendarRequest,  # 👈 Use strict Pydantic model instead of dict
 ):
     """
-    The 'AI Suggest' endpoint. 
+    The 'AI Suggest' endpoint.
     Pass a 7 or 14-day array, and the LangGraph Agent will fill the nulls.
     """
     # 1. Prepare the initial state for LangGraph
-    initial_state = {
-        "calendar": plan_data.get("calendar", []),
-        "cycle_length": plan_data.get("cycle_length", 7),
-        "user_goal": plan_data.get("user_goal", "Maintain fitness"),
-        "request_scope": plan_data.get("request_scope", "bulk"),
-        "ai_reasoning": []
-    }
+    # plan_data.model_dump() converts the Pydantic object to a clean dict for the Agent
+    initial_state = plan_data.model_dump()
+    if "ai_reasoning" not in initial_state:
+        initial_state["ai_reasoning"] = []
 
     # 2. RUN THE AGENT (The 'Thinking' phase)
     final_state = await agent_app.ainvoke(initial_state)
 
+    if final_state.get("ai_reasoning"):
+        print("\n--- 🧠 AI COACH REASONING ---")
+        print(final_state["ai_reasoning"][-1])
+        print("-----------------------------\n")
+
     # 3. Return the updated calendar and the AI's 'thoughts'
     return {
         "updated_calendar": final_state["calendar"],
-        "coach_reasoning": final_state["ai_reasoning"]
+        "coach_reasoning": final_state["ai_reasoning"],
     }

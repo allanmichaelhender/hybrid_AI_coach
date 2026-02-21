@@ -43,7 +43,7 @@ async def retriever_node(state: AgentState):
                 "modality": workout.modality,
                 "focus": workout.focus,
                 # Ensure this matches your Workout model field name (tss)
-                "tss": getattr(workout, 'tss', 0) 
+                "tss": float(workout.calculated_tss) if workout.calculated_tss else 0.0
             })
 
     return {"calendar": new_calendar}

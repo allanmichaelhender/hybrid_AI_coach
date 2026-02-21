@@ -1,23 +1,33 @@
 // src/components/ui/DayCard.jsx
 import { Lock, Unlock, Zap } from 'lucide-react';
 
-export const DayCard = ({ day, onToggleLock }) => {
+// 1. ADD 'onClick' to the props
+export const DayCard = ({ day, onToggleLock, onClick }) => {
   const hasWorkout = !!day.workout_id;
 
+  const handleLockClick = (e) => {
+    // 2. CRITICAL: Prevents the modal from opening when you just want to lock the day
+    e.stopPropagation(); 
+    onToggleLock(day.day_index);
+  };
+
   return (
-    <div className={`relative min-h-[180px] p-5 rounded-2xl border transition-all duration-500 ${
-      hasWorkout 
-        ? 'bg-zinc-900 border-zinc-700 shadow-xl' 
-        : 'bg-transparent border-dashed border-zinc-800 hover:border-zinc-700'
-    }`}>
+    <div 
+      onClick={onClick} // 3. Apply the click handler here
+      className={`relative min-h-[180px] p-5 rounded-2xl border transition-all duration-500 group ${
+        hasWorkout 
+          ? 'bg-zinc-900 border-zinc-700 shadow-xl cursor-pointer hover:border-hybrid-neon/50' 
+          : 'bg-transparent border-dashed border-zinc-800 hover:border-zinc-700'
+      }`}
+    >
       {/* Day Header */}
       <div className="flex justify-between items-center mb-6">
         <span className="text-[10px] font-black text-zinc-600 tracking-[0.2em] uppercase">
           Day {day.day_index + 1}
         </span>
         <button 
-          onClick={() => onToggleLock(day.day_index)} 
-          className="transition-colors hover:text-hybrid-neon group"
+          onClick={handleLockClick} // 4. Use the stopped-propagation handler
+          className="transition-colors hover:text-hybrid-neon relative z-10"
         >
           {day.is_user_locked ? (
             <Lock className="w-4 h-4 text-hybrid-neon" />
@@ -30,7 +40,7 @@ export const DayCard = ({ day, onToggleLock }) => {
       {/* Content */}
       {hasWorkout ? (
         <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
-          <h3 className="font-bold text-sm leading-tight mb-4 h-10 line-clamp-2 text-white">
+          <h3 className="font-bold text-sm leading-tight mb-4 h-10 line-clamp-2 text-white group-hover:text-hybrid-neon transition-colors">
             {day.title}
           </h3>
           <div className="flex items-center gap-2">

@@ -3,14 +3,14 @@ import { useAuth } from '../hooks/useAuth';
 import { usePlanner } from '../hooks/usePlanner';
 import { DayCard } from '../components/ui/DayCard';
 import { Button } from '../components/ui/Button';
+import { WorkoutModal } from '../components/ui/WorkoutModal'; // 1. Import the new Modal
 import { 
   Brain, 
   LogOut, 
   LogIn, 
   Trash2, 
   Sparkles, 
-  Loader2, 
-  ChevronRight 
+  Loader2 
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,6 @@ function Home() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
   
-  // 1. Pull everything from our custom "Brain" hook
   const { 
     days, 
     cycleLength, 
@@ -30,10 +29,12 @@ function Home() {
   } = usePlanner();
 
   const [goal, setGoal] = useState("Focus on VO2 Max and Strength");
+  
+  // 2. State to track the active workout being viewed
+  const [selectedDay, setSelectedDay] = useState(null);
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-hybrid-neon selection:text-black">
-      {/* 1. TOP NAVIGATION */}
       <nav className="border-b border-zinc-900 p-4 sticky top-0 bg-black/80 backdrop-blur-md z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -58,11 +59,10 @@ function Home() {
       </nav>
 
       <main className="p-8 max-w-7xl mx-auto">
-        {/* 2. HEADER & TOGGLE */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
           <div>
             <h2 className="text-4xl font-black mb-2 uppercase tracking-tighter">Your Training <span className="text-hybrid-neon">Block</span></h2>
-            <p className="text-zinc-500 font-medium italic">Adaptive 60-minute sessions via Llama 3.1</p>
+            <p className="text-zinc-500 font-medium italic">Adaptive 60-minute sessions via Llama 3.3</p>
           </div>
 
           <div className="flex bg-zinc-900 p-1 rounded-xl border border-zinc-800 self-start md:self-end">
@@ -75,7 +75,6 @@ function Home() {
           </div>
         </div>
 
-        {/* 3. AI INPUT SECTION */}
         <div className="bg-zinc-900/40 border border-zinc-800 p-3 rounded-2xl mb-12 flex flex-col md:flex-row gap-3">
           <input 
             value={goal} 
@@ -89,18 +88,18 @@ function Home() {
           </Button>
         </div>
 
-        {/* 4. THE CALENDAR GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4 mb-12">
           {days.slice(0, cycleLength).map((day, idx) => (
             <DayCard 
               key={idx} 
               day={day} 
               onToggleLock={toggleLock} 
+              // 3. Trigger Modal on click IF a workout exists
+              onClick={() => day.workout_id && setSelectedDay(day)}
             />
           ))}
         </div>
 
-        {/* 5. FOOTER ACTIONS */}
         <div className="flex justify-between items-center pt-8 border-t border-zinc-900">
           <button onClick={clearPlan} className="text-zinc-700 hover:text-red-500 flex items-center gap-2 text-xs font-bold transition-colors">
             <Trash2 className="w-4 h-4" /> RESET DRAFT
@@ -113,6 +112,13 @@ function Home() {
           )}
         </div>
       </main>
+
+      {/* 4. The Modal Overlay */}
+      <WorkoutModal 
+        day={selectedDay} 
+        isOpen={!!selectedDay} 
+        onClose={() => setSelectedDay(null)} 
+      />
     </div>
   );
 }
