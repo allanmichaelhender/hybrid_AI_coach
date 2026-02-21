@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { usePlanner } from '../hooks/usePlanner';
-import { DayCard } from '../features/planner/components/DayCard';
+import { DayCard } from '../components/ui/DayCard';
 import { Button } from '../components/ui/Button';
 import { 
   Brain, 

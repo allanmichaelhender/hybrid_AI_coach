@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       }
     };
     window.addEventListener("storage", syncAuth);
-    return () => window.remove_event_listener("storage", syncAuth);
+    return () => window.removeEventListener("storage", syncAuth);
   }, []);
 
   return (

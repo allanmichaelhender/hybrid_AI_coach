@@ -9,14 +9,16 @@ async def retriever_node(state: AgentState):
     Parses the AI's 'thoughts' and fetches real workouts from pgvector.
     """
     # 1. Get the latest 'reasoning' block from the AI
+    if not state["ai_reasoning"]:
+        return {"calendar": state["calendar"]}
+        
     last_thought = state["ai_reasoning"][-1]
     
     # 2. Regex to find the pattern [DAY]: MODALITY | FOCUS | QUERY
-    # Example: [2]: Swimming | Aerobic Low | Easy drills
     pattern = r"\[(\d+)\]:\s*([^|]+)\|\s*([^|]+)\|\s*(.*)"
     matches = re.findall(pattern, last_thought)
     
-    new_calendar = state["calendar"].copy()
+    new_calendar = [day.copy() for day in state["calendar"]]
     
     for match in matches:
         day_idx = int(match[0])
@@ -25,23 +27,23 @@ async def retriever_node(state: AgentState):
         query = match[3].strip()
         
         # 3. CALL YOUR HYBRID SEARCH SERVICE
-        # This hits pgvector + Postgres filters
-        results = await search_workouts_filtered(
+        # This returns a SINGLE Workout object (via .first())
+        workout = await search_workouts_filtered(
             query=query, 
             modality=modality, 
             focus=focus, 
             limit=1
         )
         
-        if results:
-            workout = results[0]
-            # 4. Update the 'State' with the real Database object
+        # FIX: Check if workout exists, then use it directly (no [0])
+        if workout:
             new_calendar[day_idx].update({
                 "workout_id": workout.id,
                 "title": workout.title,
                 "modality": workout.modality,
                 "focus": workout.focus,
-                "tss": workout.calculated_tss
+                # Ensure this matches your Workout model field name (tss)
+                "tss": getattr(workout, 'tss', 0) 
             })
 
     return {"calendar": new_calendar}

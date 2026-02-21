@@ -9,7 +9,7 @@ from core.config import settings
 # Initialize Groq
 llm = ChatGroq(
     temperature=0.1, 
-    model_name="llama-3.1-70b-versatile",
+    model_name="llama-3.3-70b-versatile",
     api_key=settings.GROQ_API_KEY
 )
 
