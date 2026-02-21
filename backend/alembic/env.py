@@ -17,6 +17,7 @@ from models.user import User
 from models.plan import UserPlan
 from models.workout import Workout
 
+
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)

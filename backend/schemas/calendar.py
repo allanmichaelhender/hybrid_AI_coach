@@ -28,3 +28,9 @@ class CalendarRequest(BaseModel):
 class CalendarUpdateResponse(BaseModel):
     updated_calendar: List[CalendarDay]
     coach_reasoning: List[str]
+
+class SavePlanRequest(BaseModel):
+    plan_name: Optional[str] = "My Hybrid Block"
+    user_goal: str
+    calendar_data: List[CalendarDay] # 👈 This validates the 14-day block
+    coach_reasoning: Optional[str] = None

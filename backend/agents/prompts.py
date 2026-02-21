@@ -13,6 +13,7 @@ Your goal is to optimize a {cycle_length}-day training block.
 4. VARIETY: Try to balance Strength, Conditioning, and Aerobic modalities within the {cycle_length}-day window.
 5. SINGLE DAY MODE: If <request_scope>is 'single'</request_scope>, only suggest a workout for <target_day>{target_day}</target_day>.
 6. CYCLIC SCHEDULE: Remember that the first day if the training block will always follow the last day and ensure the Recovery rule is maintained over these days.
+7. REST DAY: Always schedule at least one rest day in per week, a rest day should include no activity, mobility at the most.
 </rules>
 
 <context>

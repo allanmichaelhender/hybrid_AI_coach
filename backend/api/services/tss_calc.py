@@ -6,7 +6,8 @@ MODALITY_MULTIPLIERS = {
     "Hypertrophy": 0.3,
     "Conditioning": 1.1,
     "Cycling": 1.0,
-    "Swimming": 1.0
+    "Swimming": 1.0,
+    "Rest": 0
 }
 
 def calculate_complex_tss(workout_structure: list, modality: str) -> float:

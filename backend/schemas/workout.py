@@ -11,6 +11,7 @@ class Modality(str, Enum):
     CONDITIONING = "Conditioning"
     STRENGTH = "Strength"
     HYPERTROPHY = "Hypertrophy"
+    REST = "Rest"
 
 class Focus(str, Enum):
     VO2_MAX = "VO2 Max"
@@ -19,6 +20,7 @@ class Focus(str, Enum):
     ANAEROBIC = "Anaerobic"
     HYPERTROPHY = "Hypertrophy"
     STRENGTH = "Strength"
+    REST = "Rest"
 
 class WorkoutStep(BaseModel):
     name: str

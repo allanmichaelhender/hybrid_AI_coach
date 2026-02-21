@@ -7,17 +7,16 @@ export const usePlanner = () => {
   const [days, setDays] = useState([]);
   const [cycleLength, setCycleLength] = useState(7);
   const [loading, setLoading] = useState(false);
+  const [reasoning, setReasoning] = useState(""); 
 
   // 1. INITIALIZATION: Load data based on Auth Status
   useEffect(() => {
     const savedGuestPlan = localStorage.getItem("guest_plan");
 
     if (!isLoggedIn && savedGuestPlan) {
-      // If Guest: Load their local draft
       setDays(JSON.parse(savedGuestPlan));
     } else {
-      // If Logged In: We'll eventually fetch from /api/v1/calendar/
-      // For now, initialize a clean 14-day slate
+      // Default empty 14-day template
       setDays(
         Array.from({ length: 14 }, (_, i) => ({
           day_index: i,
@@ -25,6 +24,8 @@ export const usePlanner = () => {
           title: null,
           modality: null,
           focus: null,
+          description: null,
+          structure: null,
           tss: 0,
           is_user_locked: false,
         })),
@@ -32,16 +33,14 @@ export const usePlanner = () => {
     }
   }, [isLoggedIn]);
 
-  // 2. GUEST PERSISTENCE: Save to localStorage whenever days change
+  // 2. GUEST PERSISTENCE
   useEffect(() => {
     if (!isLoggedIn && days.length > 0) {
       localStorage.setItem("guest_plan", JSON.stringify(days));
     }
   }, [days, isLoggedIn]);
 
-  // 3. THE AI ORCHESTRATOR: Call the LangGraph Agent
-  // src/hooks/usePlanner.js
-
+  // 3. THE AI ORCHESTRATOR
   const suggestPlan = async (userGoal) => {
     setLoading(true);
     try {
@@ -52,19 +51,32 @@ export const usePlanner = () => {
         request_scope: "bulk",
       });
 
-      // THE FIX: Use .map() to create a brand new array with brand new objects
+      // A. Update the Calendar State (Deep Merge)
       const newCalendar = days.map((existingDay) => {
-        // Find the specific day the AI just returned
         const aiUpdatedDay = response.data.updated_calendar.find(
           (d) => d.day_index === existingDay.day_index,
         );
-
-        // If the AI updated this day, merge it into a NEW object {...}
-        // If not, return the existing day as is
         return aiUpdatedDay ? { ...existingDay, ...aiUpdatedDay } : existingDay;
       });
-
       setDays(newCalendar);
+
+      // B. Capture & Format Reasoning
+      if (response.data.coach_reasoning?.length > 0) {
+        const rawReasoning =
+          response.data.coach_reasoning[
+            response.data.coach_reasoning.length - 1
+          ];
+
+        // ✨ PRO MOVE: Regex to remove the [0]: Modality search intents
+        // This leaves only the natural language explanation for the user.
+        const cleanReasoning = rawReasoning
+          .replace(/\[\d+\].*?\|.*?\|.*?\n?/g, "") // Removes search intent lines
+          .replace(/Search Intents:?\n?/gi, "") // Removes the header
+          .trim();
+
+        setReasoning(cleanReasoning);
+      }
+
       return { success: true };
     } catch (err) {
       console.error("AI Planner Error:", err);
@@ -74,7 +86,6 @@ export const usePlanner = () => {
     }
   };
 
-  // 4. THE STATE MODIFIERS
   const toggleLock = (idx) => {
     setDays((prev) =>
       prev.map((day, i) =>
@@ -93,6 +104,7 @@ export const usePlanner = () => {
           tss: 0,
         })),
       );
+      setReasoning("");
     }
   };
 
@@ -104,5 +116,6 @@ export const usePlanner = () => {
     suggestPlan,
     toggleLock,
     clearPlan,
+    reasoning, // 👈 Passed to Home.jsx
   };
 };
