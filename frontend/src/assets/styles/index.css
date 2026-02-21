@@ -1,0 +1,23 @@
+/* src/index.css */
+@import "tailwindcss";
+
+@theme {
+  /* Your 'Hybrid Hour' Brand Palette */
+  --color-hybrid-neon: #ccff00;
+  --color-hybrid-black: #050505;
+  --color-hybrid-zinc: #121212;
+  
+  /* Custom Animations for the AI 'Thinking' states */
+  --animate-glow: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@layer base {
+  body {
+    @apply bg-hybrid-black text-white antialiased;
+  }
+}

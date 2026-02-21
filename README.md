@@ -51,19 +51,18 @@ backend/
 
 
 frontend/src/
-├── api/                # Axios instance & API endpoint definitions
-│   └── client.js       # Centralized axios config (CORS/BaseURL)
-├── components/         # Shared, reusable UI components (Atoms)
-│   ├── ui/             # Buttons, Inputs, Badges (Tailwind-heavy)
-│   └── layout/         # Header, Footer, Sidebar
-├── features/           # Main "Business Logic" of the app
-│   ├── planner/        # Everything for the 7/14 Day Calendar
-│   │   ├── components/ # DayCard, CalendarGrid, GoalInput
-│   │   ├── hooks/      # usePlanner (logic for AI Suggest)
-│   │   └── plannerSlice.js # (If we used Redux/Zustand, but we'll use state)
-│   └── auth/           # Login/Register logic
-├── hooks/              # Global hooks (useAuth, useLocalStorage)
-├── assets/             # Images, SVGs, global CSS
-└── App.jsx             # Root component (Routs & Layout)
+├── api/                # Axios client
+├── components/         # Shared UI (Button, Input, Navbar)
+├── features/           # Logic-heavy features
+│   ├── auth/           # Login/Register forms & logic
+│   └── planner/        # Calendar & AI Suggest logic
+├── pages/              # The actual "Screens"
+│   ├── Home.jsx        # Your Workout Planner
+│   ├── Login.jsx       # Login Screen
+│   └── Register.jsx    # Register Screen
+├── assets/             # CSS files
+├── App.jsx             # Router Configuration
+└── main.jsx            # Entry point
+
 
 ```
