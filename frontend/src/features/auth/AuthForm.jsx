@@ -52,7 +52,7 @@ function AuthForm({ method }) {
           <Zap className="w-8 h-8 text-hybrid-neon fill-current" />
         </div>
         <h1 className="text-2xl font-black text-white">{title}</h1>
-        <p className="text-zinc-500 text-sm mt-2">Adaptive 60-Minute Programming</p>
+        <p className="text-zinc-500 text-sm mt-2">Hybrid Workouts in 60 minutes</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">

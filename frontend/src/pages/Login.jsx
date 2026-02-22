@@ -18,7 +18,7 @@ function Login() {
 
       {/* Footer / Legal Links */}
       <footer className="mt-12 text-[10px] text-zinc-700 uppercase tracking-[0.2em] font-bold">
-        Engineered for Performance • v1.0
+      v1.0
       </footer>
     </div>
   );

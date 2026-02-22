@@ -7,6 +7,7 @@ import { WorkoutModal } from "../components/ui/WorkoutModal";
 import { addDays, format } from "date-fns";
 import {
   Brain,
+  Zap,
   LogOut,
   LogIn,
   Trash2,
@@ -42,7 +43,7 @@ function Home() {
 
 Have my high intensity running days on Monday and Wednesdays, Cycling is the best form of low intensity training for me.
 
-I want to do at least two Hypertrophy sessions too per week.`,
+I also want to do at least two Hypertrophy sessions too per week.`,
   );
   const [selectedDay, setSelectedDay] = useState(null);
 
@@ -59,7 +60,7 @@ I want to do at least two Hypertrophy sessions too per week.`,
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-hybrid-neon rounded-lg flex items-center justify-center">
-              <Brain className="text-black w-5 h-5" />
+              <Zap className="text-black w-5 h-5" />
             </div>
             <span className="font-black tracking-tighter text-xl uppercase">
               Hybrid Hour
@@ -128,7 +129,7 @@ I want to do at least two Hypertrophy sessions too per week.`,
           {/* Compact Action Bar (Streamlined) */}
           <div className="flex justify-between items-center px-2 py-1.5 border-t border-zinc-800/50 mt-1">
             <div className="flex items-center gap-2 text-[10px] font-black text-zinc-600 uppercase tracking-widest pl-2">
-              <Brain className="w-3 h-3 opacity-50" />
+              <Zap className="w-3 h-3 opacity-50" />
               Powered by Llama 3.3
             </div>
 

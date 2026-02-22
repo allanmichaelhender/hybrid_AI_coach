@@ -20,7 +20,7 @@ function Register() {
       {/* Contextual help link if they already have an account */}
       <footer className="mt-8">
         <p className="text-zinc-600 text-xs font-bold uppercase tracking-widest">
-          Join the <span className="text-white">Hybrid Hour</span> Community
+          Join <span className="text-white">Hybrid Hour</span>
         </p>
       </footer>
     </div>
