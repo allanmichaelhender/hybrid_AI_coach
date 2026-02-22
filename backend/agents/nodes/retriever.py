@@ -27,6 +27,10 @@ async def retriever_node(state: AgentState):
         day_idx = int(match[0])
         modality, focus, query = match[1].strip(), match[2].strip(), match[3].strip()
 
+        if day_idx < 0 or day_idx >= len(new_calendar):
+            print(f"⚠️ AI suggested Day {day_idx}, but cycle only has {len(new_calendar)} days. Skipping.")
+            continue
+
         # 1. ATTEMPT: Search the Database (RAG)
         workout = await search_workouts_filtered(
             query=query, modality=modality, focus=focus, limit=1

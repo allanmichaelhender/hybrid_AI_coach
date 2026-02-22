@@ -1,14 +1,14 @@
-from typing import Generator
-from database.session import AsyncSessionLocal
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
 import jwt
+from uuid import UUID # 👈 Import UUID
+from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from core.config import settings
-from crud.user import get_user_by_id as get_user
-import models
-from schemas.token import TokenPayload
 from models.user import User
+from schemas.token import TokenPayload # Ensure this matches your schema file
+from crud.user import get_user_by_id # Ensure this points to your user service
+from fastapi.security import OAuth2PasswordBearer
+from database.session import AsyncSessionLocal
+
 
 async def get_db():
     async with AsyncSessionLocal() as session:
@@ -17,18 +17,35 @@ async def get_db():
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login/access-token")
 
-def get_current_user(
+async def get_current_user(
     db: Session = Depends(get_db), 
     token: str = Depends(oauth2_scheme)
 ) -> User:
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        # 1. Decode using PyJWT
+        payload = jwt.decode(
+            token, 
+            settings.SECRET_KEY, 
+            algorithms=[settings.ALGORITHM]
+        )
         token_data = TokenPayload(**payload)
-    except (jwt.InvalidTokenError, jwt.exceptions.PyJWTError):
-        raise HTTPException(status_code=401, detail="Could not validate credentials")
+        
+        # 2. THE FIX: Cast the 'sub' to a UUID object, not an int
+        user_id = UUID(token_data.sub) 
+        
+    except (jwt.PyJWTError, ValueError): # Catch JWT errors and UUID format errors
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, 
+            detail="Could not validate credentials"
+        )
     
-    user = get_user(db, id=int(token_data.sub)) 
+    # 3. Use the UUID object to fetch the user
+    user = await get_user_by_id(db, id=user_id) 
     
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, 
+            detail="User not found"
+        )
+        
     return user

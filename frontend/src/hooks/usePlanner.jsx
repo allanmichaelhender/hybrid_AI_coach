@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import api from "../api/client";
 import { useAuth } from "./useAuth";
 
@@ -7,7 +7,33 @@ export const usePlanner = () => {
   const [days, setDays] = useState([]);
   const [cycleLength, setCycleLength] = useState(7);
   const [loading, setLoading] = useState(false);
-  const [reasoning, setReasoning] = useState(""); 
+  const [reasoning, setReasoning] = useState("");
+
+  const fetchLatest = useCallback(async () => {
+    if (!isLoggedIn) return;
+
+    setLoading(true);
+    try {
+      const { data } = await api.get("/calendar/latest");
+
+      if (data && data.calendar_data) {
+        // 🚀 THE MAGIC: Overwrite the local state with the Neon data
+        setDays(data.calendar_data);
+        setReasoning(data.coach_reasoning || "");
+        console.log("Cloud Plan Loaded: ", data.plan_name);
+      }
+    } catch (err) {
+      console.error("Failed to load latest plan:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchLatest();
+    }
+  }, [isLoggedIn, fetchLatest]);
 
   // 1. INITIALIZATION: Load data based on Auth Status
   useEffect(() => {
@@ -108,14 +134,46 @@ export const usePlanner = () => {
     }
   };
 
+  const savePlan = async (userGoal) => {
+    if (!isLoggedIn) {
+      alert("Sign in to save your plan to the cloud! 🚀");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const payload = {
+        plan_name: `Mission: ${userGoal}`,
+        user_goal: userGoal,
+        // Match the backend Pydantic schema key:
+        calendar_data: days,
+        coach_reasoning: reasoning,
+      };
+
+      // Ensure the path matches your FastAPI router prefix
+      const response = await api.post("/calendar/save", payload);
+
+      if (response.status === 201) {
+        alert("Plan synced to Neon Cloud! ✅");
+      }
+    } catch (err) {
+      console.error("Save failed:", err);
+      alert("Cloud sync failed. Check your connection.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     days,
     cycleLength,
     setCycleLength,
     loading,
     suggestPlan,
+    savePlan,
     toggleLock,
     clearPlan,
-    reasoning, // 👈 Passed to Home.jsx
+    reasoning,
+    fetchLatest // 👈 Passed to Home.jsx
   };
 };

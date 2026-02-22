@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Any, Union
 from uuid import UUID
+from datetime import datetime
 
 class WorkoutStep(BaseModel):
     name: str
@@ -34,3 +35,17 @@ class SavePlanRequest(BaseModel):
     user_goal: str
     calendar_data: List[CalendarDay] # 👈 This validates the 14-day block
     coach_reasoning: Optional[str] = None
+
+class SavePlanResponse(BaseModel):
+    id: UUID
+    plan_name: Optional[str]
+    user_goal: str
+    # 🧠 This matches your JSONB column in Neon
+    calendar_data: List[CalendarDay] 
+    coach_reasoning: Optional[str]
+    created_at: datetime
+
+    # 🚀 THE "MAGIC" SETTING: 
+    # This allows Pydantic to convert SQLAlchemy models into JSON automatically
+    model_config = ConfigDict(from_attributes=True)
+

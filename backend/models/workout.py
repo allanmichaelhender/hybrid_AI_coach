@@ -15,7 +15,6 @@ class Workout(Base):
     modality: Mapped[str] = mapped_column(String(50), index=True)
     focus: Mapped[str] = mapped_column(String(50), index=True)
     
-    rpe: Mapped[int] = mapped_column(Integer)
     calculated_tss: Mapped[float] = mapped_column(Float)
     
     description: Mapped[str] = mapped_column(Text)

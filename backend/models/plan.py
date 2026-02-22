@@ -1,28 +1,34 @@
 import uuid
-from sqlalchemy import String, Boolean, Date, ForeignKey, Integer
-from sqlalchemy.dialects.postgresql import UUID
+from datetime import datetime
+from sqlalchemy import String, ForeignKey, DateTime
+from sqlalchemy.dialects.postgresql import UUID, JSONB # 👈 Essential for the AI block
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from database.session import Base
 
 class UserPlan(Base):
     __tablename__ = "user_plans"
 
+    # 1. Identity
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), 
-        ForeignKey("users.id"), 
+        ForeignKey("users.id", ondelete="CASCADE"), 
         index=True, 
-        nullable=False)
-    
-    day_index: Mapped[int] = mapped_column(Integer, nullable=False)
-    
-    # Link to our Workout Library
-    workout_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("workouts.id"), nullable=True
+        nullable=False
     )
     
-    # UI/Agent control: If True, AI Suggest won't touch this day
-    is_user_locked: Mapped[bool] = mapped_column(Boolean, default=False)
+    # 2. Metadata (What the endpoint is sending)
+    plan_name: Mapped[str] = mapped_column(String, nullable=True)
+    user_goal: Mapped[str] = mapped_column(String, nullable=False)
+    
+    # 3. The Payload (The 14-day JSON array from React)
+    # This stores your 'synthetic' workouts and 'workout_id's in one blob
+    calendar_data: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    
+    # 4. The AI Reasoning
+    coach_reasoning: Mapped[str] = mapped_column(String, nullable=True)
+    
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
-    # Relationship to easily fetch workout details in one query
-    workout = relationship("Workout")
+    # Relationship to User
+    user = relationship("User", back_populates="plans")

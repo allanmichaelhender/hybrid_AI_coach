@@ -10,11 +10,10 @@ llm = ChatGroq(temperature=0.7, model_name="llama-3.3-70b-versatile", api_key=se
 ALLOWED_MODALITIES = ", ".join(MODALITY_MULTIPLIERS.keys())
 
 async def generate_synthetic_workout(modality: str, focus: str, query: str):
-    # Fallback to 'Conditioning' if the LLM hallucinated a modality not in our dict
     validated_modality = modality if modality in MODALITY_MULTIPLIERS else "Conditioning"
     
     prompt = f"""
-    Create a unique 60-minute workout.
+    Create a unique 60-minute workout. Unless the modality is Rest, then the total length across the blocks must equal 30 minutes.
     MODALITY: {validated_modality} (You MUST ONLY use this modality).
     FOCUS: {focus}
     GOAL: {query}
@@ -44,8 +43,6 @@ async def generate_synthetic_workout(modality: str, focus: str, query: str):
         clean_content = response.content.replace('```json', '').replace('```', '').strip()
         data = json.loads(clean_content)
         
-        # 🔥 THE PRO MOVE: Use your real Python function for the math
-        # This replaces the AI's "guess" with your actual formula
         data["tss"] = calculate_complex_tss(data["structure"], validated_modality)
         
         return data

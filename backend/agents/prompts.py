@@ -14,6 +14,8 @@ Your goal is to optimize a {cycle_length}-day training block.
 5. SINGLE DAY MODE: If <request_scope>is 'single'</request_scope>, only suggest a workout for <target_day>{target_day}</target_day>.
 6. CYCLIC SCHEDULE: Remember that the first day if the training block will always follow the last day and ensure the Recovery rule is maintained over these days.
 7. REST DAY: Always schedule at least one rest day in per week, a rest day should include no activity, mobility at the most.
+8. STRICT BOUNDARY: Do NOT suggest any day index equal to or greater than {cycle_length}.
+9. DAYS OF WEEK: DAY_INDEX = 0 is Monday, DAY_INDEX = 1 is Tuesday, etc.
 </rules>
 
 <context>

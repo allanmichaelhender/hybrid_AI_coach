@@ -4,6 +4,7 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, DateTime, ForeignKey
+from typing import List
 
 class User(Base):
     __tablename__ = "users"
@@ -12,4 +13,9 @@ class User(Base):
     )
     username: Mapped[str] = mapped_column(unique=True, index=True, nullable=False)
     hashed_password: Mapped[str] = mapped_column(nullable=False)
+    plans: Mapped[List["UserPlan"]] = relationship(
+        "UserPlan", 
+        back_populates="user", 
+        cascade="all, delete-orphan"
+    )
 
