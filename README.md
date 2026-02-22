@@ -2,9 +2,6 @@
 
 An intelligent, stateful training platform that transforms natural language fitness "missions" into elite 14-day hybrid training plans. Powered by **Llama 3.3**, **LangGraph**, and **Vector Search**.
 
-![Architecture](https://img.shields.io|%20React%20|%20Postgres-blue)
-![AI](https://img.shields.io|%20Llama3.3%20|%20HuggingFace-orange)
-
 ## 🚀 Live Demo
 **[View Live App](https://hybrid-hour.ddnsfree.com)** (Deployed on GCP with Nginx/SSL)
 
@@ -86,9 +83,6 @@ backend/
 │
 └── migrations/             # THE HISTORY: Alembic Versions
     └── versions/           # Individual .py migration files
-
-
-
 
 frontend/src/
 ├── api/                # Axios client
