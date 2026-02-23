@@ -34,8 +34,6 @@ async def analyzer_node(state: AgentState):
         "cycle_length": state["cycle_length"],
         "calendar_xml": calendar_xml,
         "user_goal": state["user_goal"],
-        "request_scope": state["request_scope"],
-        "target_day": state.get("target_day", "N/A")
     })
 
     # 5. Return both the text for the UI and the data for the next node

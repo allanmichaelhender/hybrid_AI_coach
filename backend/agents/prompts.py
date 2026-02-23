@@ -20,7 +20,6 @@ Current Calendar:
 {calendar_xml}
 
 Goal: {user_goal}
-Scope: {request_scope} (Target Day: {target_day})
 </context>
 
 <task>

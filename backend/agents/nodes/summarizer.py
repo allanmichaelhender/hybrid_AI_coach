@@ -5,6 +5,7 @@ from core.config import settings
 async def summarizer_node(state):
     llm = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0.1, api_key=settings.GROQ_API_KEY)
     
+    print(state["ai_reasoning"])
     # We take the raw thoughts from the state
     raw_thoughts = state["ai_reasoning"][-1]
 

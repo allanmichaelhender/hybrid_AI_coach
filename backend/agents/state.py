@@ -34,8 +34,6 @@ class AgentState(TypedDict):
     
     # Configuration
     cycle_length: int 
-    request_scope: str # "single" or "bulk"
-    target_day: Optional[int] # The specific day index if scope is "single"
     
     # Context
     user_goal: str   
