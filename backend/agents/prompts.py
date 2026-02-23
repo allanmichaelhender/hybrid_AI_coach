@@ -28,3 +28,4 @@ Analyze gaps and provide reasoning in <thought> tags.
 Then, output search intents: [DAY_INDEX]: [MODALITY] | [FOCUS] | [VECTOR QUERY]
 </task>
 """
+

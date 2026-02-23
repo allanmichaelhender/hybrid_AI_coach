@@ -33,10 +33,8 @@ class AgentState(TypedDict):
     calendar: Annotated[List[CalendarDay], replace_list]
     
     # Configuration
-    cycle_length: int 
-    request_scope: str # "single" or "bulk"
-    target_day: Optional[int] # The specific day index if scope is "single"
-    
+    cycle_length: int
+         
     # Context
     user_goal: str   
     ai_reasoning: List[str] 
