@@ -15,7 +15,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "Unilateral Stability: The Offset Load",
         "modality": "Strength",
-        "focus": "Conditioning",
+        "focus": "Strength",
         "description": "Single-arm/Single-leg focus. Building core anti-rotation and fixing imbalances that lead to running injuries.",
         "structure": [
             {"name": "Prep", "repeat_count": 1, "steps": [{"name": "Single Leg Flow", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -28,7 +28,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "Push-Pull Engine: Vertical Focus",
         "modality": "Strength",
-        "focus": "Power",
+        "focus": "Strength",
         "description": "Upper body functional power. Strict press and weighted pull-ups (or rows). Maximum force with controlled eccentrics.",
         "structure": [
             {"name": "Activation", "repeat_count": 1, "steps": [{"name": "Band Work", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -41,7 +41,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "The Sandbag Simulator: Odd Object",
         "modality": "Strength",
-        "focus": "Conditioning",
+        "focus": "Strength",
         "description": "Simulating the 'unpredictable' weight of open-water swimming or trail running. Bear hugs, carries, and ground-to-overheads.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Dynamic Flow", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -54,7 +54,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "Grip & Go: The HYROX Finisher",
         "modality": "Strength",
-        "focus": "Anaerobic",
+        "focus": "Strength",
         "description": "Grip-intensive strength. Farmers carries into burpees. Focus on maintaining posture under extreme cardiovascular stress.",
         "structure": [
             {"name": "Grip Prep", "repeat_count": 1, "steps": [{"name": "Hang & Carry", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -67,7 +67,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "Squat Endurance: Tempo Goblets",
         "modality": "Strength",
-        "focus": "Endurance",
+        "focus": "Strength",
         "description": "High-rep goblet squats with a 3-second descent. Building the 'bulletproof' knees needed for high-volume running.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Ankle/Hip Mobility", "duration_mins": 15, "intensity_factor": 0.3}]},
@@ -80,7 +80,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "Core Integrity: Isometric Focus",
         "modality": "Strength",
-        "focus": "Recovery",
+        "focus": "Strength",
         "description": "Non-impact structural day. Planks, dead-bugs, and hollow holds. Building the trunk stability to stay upright during long endurance efforts.",
         "structure": [
             {"name": "Core Flow", "repeat_count": 1, "steps": [{"name": "Dynamic Abs", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -93,7 +93,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "Horizontal Force: The Sled Push",
         "modality": "Strength",
-        "focus": "Power",
+        "focus": "Strength",
         "description": "Translating gym strength into forward motion. Heavy sled pushes or resisted treadmill sprints.",
         "structure": [
             {"name": "Lower Prep", "repeat_count": 1, "steps": [{"name": "Lunges/Jog", "duration_mins": 15, "intensity_factor": 0.4}]},
@@ -106,7 +106,7 @@ STRENGTH_LIBRARY = [
     {
         "title": "Metabolic Upper: Push/Pull/Rotate",
         "modality": "Strength",
-        "focus": "Conditioning",
+        "focus": "Strength",
         "description": "High volume upper body with a core rotation twist. DB Snatch (Functional style) paired with renegade rows.",
         "structure": [
             {"name": "Rotation Prep", "repeat_count": 1, "steps": [{"name": "T-Spine Flow", "duration_mins": 10, "intensity_factor": 0.3}]},

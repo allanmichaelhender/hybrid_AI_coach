@@ -10,7 +10,6 @@ class Modality(str, Enum):
     SWIMMING = "Swimming"
     CONDITIONING = "Conditioning"
     STRENGTH = "Strength"
-    HYPERTROPHY = "Hypertrophy"
     REST = "Rest"
 
 class Focus(str, Enum):

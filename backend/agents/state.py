@@ -1,35 +1,45 @@
-# backend/agents/state.py
 from typing import List, Optional, Annotated
 from typing_extensions import TypedDict
-import operator
 import uuid
+from pydantic import BaseModel, Field
+from typing import List, Literal
+
+#Defining some schemas for the model to better understand what it's output should include
+class PlannedWorkout(BaseModel):
+    day_index: int
+    modality: Literal["Running", "Cycling", "Swiming", "Strength", "Conditioning", "Hypertrophy", "Rest"]
+    focus: Literal["Aerobic Low", "Aerobic High", "VO2 Max", "Anaerobic", "Hypertrophy", "Strength", "Rest"]
+    vector_query: str
+
+class PlanAnalysis(BaseModel):
+    workouts: List[PlannedWorkout]
+
 
 def replace_list(left: list, right: list) -> list:
     return right
 
-
+# Laying out our CalendarDay Format and data types
 class CalendarDay(TypedDict):
-    """Represents a single slot in the 7 or 14 day cycle."""
     day_index: int
     workout_id: Optional[uuid.UUID]
     title: Optional[str]
     modality: Optional[str]
     focus: Optional[str]
     tss: float
-    is_user_locked: bool  # If True, the AI must NOT change this day
+    is_user_locked: bool  
 
+#Defining the state of our AI Agent
 class AgentState(TypedDict):
-    """The shared memory of our LangGraph Agent."""
-    # Annotated with operator.setitem tells LangGraph to replace 
-    # the list when a node returns a new version
     calendar: Annotated[List[CalendarDay], replace_list]
     
     # Configuration
-    cycle_length: int  # 7 or 14
+    cycle_length: int 
     request_scope: str # "single" or "bulk"
     target_day: Optional[int] # The specific day index if scope is "single"
     
     # Context
-    user_goal: str     # e.g., "I want to improve my 5k run time"
-    ai_reasoning: List[str] # A log of 'thoughts' the AI had
+    user_goal: str   
+    ai_reasoning: List[str] 
     errors: List[str]  # Any safety violations (e.g., TSS too high)
+    planned_workouts: List[PlannedWorkout] 
+

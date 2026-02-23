@@ -2,7 +2,7 @@ SWIM_LIBRARY = [
     {
         "title": "CSS Baseline Threshold",
         "modality": "Swimming",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "The classic CSS builder. Sustained speed at your 1500m race pace. Minimal rest to build lactate clearance.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Mixed Stroke Drill", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -28,7 +28,7 @@ SWIM_LIBRARY = [
     {
         "title": "Ironman Distance Steady",
         "modality": "Swimming",
-        "focus": "Endurance",
+        "focus": "Aerobic Low",
         "description": "Steady-state aerobic endurance. Focus on body position and 'the catch' without stopping.",
         "structure": [
             {"name": "Main Set", "repeat_count": 1, "steps": [{"name": "Continuous Zone 2", "duration_mins": 60, "intensity_factor": 0.65}]}
@@ -37,7 +37,7 @@ SWIM_LIBRARY = [
     {
         "title": "Hypoxic Lung Buster",
         "modality": "Swimming",
-        "focus": "Conditioning",
+        "focus": "Aerobic Low",
         "description": "Building CO2 tolerance. Every 3, 5, 7, then 9 strokes per breath to simulate race-start stress.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Easy Flow", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -50,7 +50,7 @@ SWIM_LIBRARY = [
     {
         "title": "Pull-Power Strength",
         "modality": "Swimming",
-        "focus": "Strength",
+        "focus": "Aerobic High",
         "description": "Paddles and Pull-buoy focus. High resistance to build upper body pulling power for open water.",
         "structure": [
             {"name": "Activation", "repeat_count": 1, "steps": [{"name": "Sculling", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -76,7 +76,7 @@ SWIM_LIBRARY = [
     {
         "title": "Technique Recovery Flush",
         "modality": "Swimming",
-        "focus": "Recovery",
+        "focus": "Aerobic Low",
         "description": "Post-race or post-strength flush. Focus on glide, high-elbow, and relaxation.",
         "structure": [
             {"name": "Drills", "repeat_count": 1, "steps": [{"name": "Total Immersion Drills", "duration_mins": 45, "intensity_factor": 0.35}]},
@@ -86,7 +86,7 @@ SWIM_LIBRARY = [
     {
         "title": "70.3 Race Simulation",
         "modality": "Swimming",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "Broken 1900m at race intensity. Alternating pace between 'sighting' and 'settling' speed.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Build 400", "duration_mins": 10, "intensity_factor": 0.5}]},
@@ -99,7 +99,7 @@ SWIM_LIBRARY = [
     {
         "title": "Sprint Metcon: In/Out",
         "modality": "Swimming",
-        "focus": "Conditioning",
+        "focus": "Aerobic High",
         "description": "Simulation of open-water beach starts. Sprint 25m, touch the wall, pull yourself out, jump back in.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Mixed Drill", "duration_mins": 15, "intensity_factor": 0.4}]},
@@ -112,7 +112,7 @@ SWIM_LIBRARY = [
     {
         "title": "Pyramid Power",
         "modality": "Swimming",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "25, 50, 75, 100... then back down. Building pacing discipline under cumulative fatigue.",
         "structure": [
             {"name": "Up-Ladder", "repeat_count": 1, "steps": [{"name": "Climb", "duration_mins": 25, "intensity_factor": 0.85}]},

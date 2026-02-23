@@ -42,7 +42,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "EMOM 40: Work Capacity",
         "modality": "Conditioning",
-        "focus": "Metcon",
+        "focus": "Aerobic High",
         "description": "Every Minute On the Minute. Minute 1: Burpees, Minute 2: KB Swings, Minute 3: Wall Balls, Minute 4: Rest. Pure aerobic-power development.",
         "structure": [
             {
@@ -73,7 +73,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "The Chipper: Engine Room",
         "modality": "Conditioning",
-        "focus": "Endurance",
+        "focus": "Aerobic High",
         "description": "One long list of movements to 'chip' away at. Rowing, Lunges, Box Step-ups, and Farmers Carries. No rest until the list is done.",
         "structure": [
             {
@@ -130,7 +130,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "The Devil's Press: Lactate Threshold",
         "modality": "Conditioning",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "Sustained high-rep DB work. Ground-to-overheads with dumbbells. Building the mental grit to stay moving under a high heart rate.",
         "structure": [
             {
@@ -165,7 +165,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "Farmer & Skier: Grip/Pull Duo",
         "modality": "Conditioning",
-        "focus": "Conditioning",
+        "focus": "Aerobic High",
         "description": "Focusing on the back half of a HYROX race. Alternating heavy farmer's carries with 500m Ski-Erg intervals.",
         "structure": [
             {
@@ -196,7 +196,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "The Sandbag Mile",
         "modality": "Conditioning",
-        "focus": "Power",
+        "focus": "Aerobic High",
         "description": "Shouldered sandbag walking lunges. Building the absolute leg and core durability required for the end of a long race.",
         "structure": [
             {
@@ -212,11 +212,11 @@ CONDITIONING_LIBRARY = [
             },
             {
                 "name": "The Grind",
-                "repeat_count": 5,
+                "repeat_count": 9,
                 "steps": [
                     {
                         "name": "Sandbag Lunges",
-                        "duration_mins": 7,
+                        "duration_mins": 3,
                         "intensity_factor": 0.95,
                     },
                     {
@@ -231,7 +231,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "Burpee Broad Jump Overload",
         "modality": "Conditioning",
-        "focus": "Power",
+        "focus": "Aerobic High",
         "description": "Explosive plyometrics under fatigue. 20m of broad jumps followed by a 200m row recovery.",
         "structure": [
             {
@@ -266,7 +266,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "Wall Ball & Row: Aerobic Power",
         "modality": "Conditioning",
-        "focus": "Endurance",
+        "focus": "Aerobic High",
         "description": "High volume upper/lower coordination. 100 Wall Balls for time, followed by 2000m Row. Building rhythmic endurance.",
         "structure": [
             {
@@ -293,7 +293,7 @@ CONDITIONING_LIBRARY = [
     {
         "title": "The Engine Room: Sandbag & Burpee",
         "modality": "Conditioning",
-        "focus": "Work Capacity",
+        "focus": "Aerobic High",
         "description": "Functional grinding. 400m Sandbag Lunges immediately into 100 Target Burpees. Building the grit to stay moving under extreme metabolic fatigue.",
         "structure": [
             {

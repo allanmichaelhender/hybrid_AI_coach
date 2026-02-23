@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database.session import AsyncSessionLocal
 from models.workout import Workout
 from api.services.tss_calc import calculate_complex_tss
+from sqlalchemy import delete
 
 from models.user import User
 from models.plan import UserPlan  # 👈 This is the missing piece
@@ -36,41 +37,55 @@ ALL_WORKOUTS = (
     STRENGTH_LIBRARY + HYPERTROPHY_LIBRARY + CONDITIONING_LIBRARY
 )
 
-async def seed_and_embed():
+async def refresh_database():
     async with AsyncSessionLocal() as db:
-        to_insert = []
-        
-        for data in ALL_WORKOUTS:
-            # A. Calculate TSS (Your Business Logic)
-            tss = calculate_complex_tss(data["structure"], data["modality"])
-            
-            # B. CREATE SEARCH STRING: High-density metadata for the AI
-            search_text = f"{data['modality']} {data['focus']} {data['title']} {data['description']}"
-            
-            # C. GENERATE EMBEDDING: Convert text to 384 floats
-            vector = embed_model.encode(search_text).tolist()
-            
-            workout = Workout(
-                id=uuid.uuid4(),
-                title=data["title"],
-                description=data["description"],
-                modality=data["modality"],
-                focus=data["focus"],
-                structure=data["structure"],
-                calculated_tss=tss,
-                embedding=vector # 👈 The AI 'coordinates'
-            )
-            to_insert.append(workout)
-
-        db.add_all(to_insert)
         try:
+            # --- STEP 1: CLEAR THE TABLE ---
+            print("🗑️  Wiping the 'workouts' table on Neon...")
+            await db.execute(delete(Workout))
+            
+            # --- STEP 2: GENERATE NEW DATA ---
+            new_workouts = []
+            print(f"🧬 Processing {len(ALL_WORKOUTS)} updated workouts...")
+            
+            for item in ALL_WORKOUTS:
+                # Calculate new TSS based on your tweaks
+                tss = calculate_complex_tss(item["structure"], item["modality"])
+                
+                # Create Search String for the Vector
+                search_text = f"{item['modality']} {item['focus']} {item['title']} {item['description']}"
+                embedding = embed_model.encode(search_text).tolist()
+                
+                new_workout = Workout(
+                    title=item["title"],
+                    description=item["description"],
+                    modality=item["modality"],
+                    focus=item["focus"],
+                    structure=item["structure"],
+                    calculated_tss=tss,
+                    embedding=embedding 
+                )
+                new_workouts.append(new_workout)
+            
+            # --- STEP 3: INSERT ---
+            db.add_all(new_workouts)
             await db.commit()
-            print(f"✅ SUCCESS: {len(to_insert)} workouts embedded and seeded to Neon.")
+            print(f"✅ SUCCESS: {len(new_workouts)} workouts refreshed and re-indexed.")
+            
         except Exception as e:
             await db.rollback()
-            print(f"❌ SEED FAILED: {str(e)}")
+            print(f"❌ ERROR during refresh: {str(e)}")
 
 if __name__ == "__main__":
+    print("🚀 Starting Atomic Refresh of 'workouts' table...")
+    
+    # 1. Setup the Selector for stable Async execution on GCP
     selector = selectors.SelectSelector()
     loop_factory = lambda: asyncio.SelectorEventLoop(selector)
-    asyncio.run(seed_and_embed(), loop_factory=loop_factory)
+    
+    try:
+        # 2. Run the refresh with the custom loop factory
+        asyncio.run(refresh_database(), loop_factory=loop_factory)
+        print("🏁 Refresh Complete.")
+    except Exception as e:
+        print(f"⚠️  Fatal Script Error: {e}")
