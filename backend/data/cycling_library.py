@@ -2,7 +2,7 @@ CYCLING_LIBRARY = [
     {
         "title": "The Hour of Power: FTP Build",
         "modality": "Cycling",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "The ultimate threshold builder. 2x20 minute blocks at 95-100% of FTP. Designed to increase your sustained power output.",
         "structure": [
             {"name": "Progressive Ramp", "repeat_count": 1, "steps": [{"name": "Warmup Spin", "duration_mins": 10, "intensity_factor": 0.5}]},
@@ -29,7 +29,7 @@ CYCLING_LIBRARY = [
     {
         "title": "Low Cadence Grinds: Torque",
         "modality": "Cycling",
-        "focus": "Strength",
+        "focus": "Aerobic Low",
         "description": "Strength work on the bike. 50-60 RPM at high resistance. Simulates heavy climbing and builds sport-specific leg strength.",
         "structure": [
             {"name": "Prep", "repeat_count": 1, "steps": [{"name": "Spin Up", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -66,7 +66,7 @@ CYCLING_LIBRARY = [
     {
         "title": "Sweet Spot: The Over-Under",
         "modality": "Cycling",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "Alternating just above and just below FTP. Clears lactate during the 'under' while building power during the 'over'.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Progressive", "duration_mins": 10, "intensity_factor": 0.5}]},
@@ -80,7 +80,7 @@ CYCLING_LIBRARY = [
     {
         "title": "Post-Squat Leg Flush",
         "modality": "Cycling",
-        "focus": "Recovery",
+        "focus": "Aerobic Low",
         "description": "Minimal resistance, high cadence (90+ RPM). Focused on blood flow to assist recovery after a heavy lower body lifting session.",
         "structure": [
             {"name": "Recovery Spin", "repeat_count": 1, "steps": [{"name": "High Cadence Easy", "duration_mins": 45, "intensity_factor": 0.4}]},
@@ -103,7 +103,7 @@ CYCLING_LIBRARY = [
     {
         "title": "Tempo: Diesel Mode",
         "modality": "Cycling",
-        "focus": "Endurance",
+        "focus": "Aerobic High",
         "description": "Upper Zone 3 effort. Sustainable power that requires focus but allows for long duration. The 'Sweet Spot' for building base.",
         "structure": [
             {"name": "Tempo Block", "repeat_count": 1, "steps": [{"name": "Zone 3 Steady", "duration_mins": 50, "intensity_factor": 0.80}]},
@@ -113,7 +113,7 @@ CYCLING_LIBRARY = [
     {
         "title": "Cadence Drills: Efficiency",
         "modality": "Cycling",
-        "focus": "Conditioning",
+        "focus": "Aerobic High",
         "description": "Focusing on pedal stroke efficiency. Alternating between single-leg drills and ultra-high cadence bursts.",
         "structure": [
             {"name": "Skill Blocks", "repeat_count": 5, "steps": [

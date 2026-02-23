@@ -1,7 +1,7 @@
 HYPERTROPHY_LIBRARY = [
     {
         "title": "Quad Dominance: The Sled & Squat",
-        "modality": "Hypertrophy",
+        "modality": "Strength",
         "focus": "Hypertrophy",
         "description": "High metabolic stress for the lower body. Pre-fatiguing the quads with sled pushes before high-rep goblet squats.",
         "structure": [
@@ -14,8 +14,8 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Upper Body Armour: Push/Pull",
-        "modality": "Hypertrophy",
-        "focus": "Volume",
+        "modality": "Strength",
+        "focus": "Hypertrophy",
         "description": "Building the 'chassis'. High-volume chest and back work. Focus on controlled eccentrics to maximize mechanical tension.",
         "structure": [
             {"name": "Activation", "repeat_count": 1, "steps": [{"name": "Band Pullaparts/Pushups", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -27,7 +27,7 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Posterior Chain Volume",
-        "modality": "Hypertrophy",
+        "modality": "Strength",
         "focus": "Hypertrophy",
         "description": "Glute and hamstring isolation. Building the 'engine' for hill climbs. High-rep hinges and leg curls.",
         "structure": [
@@ -40,8 +40,8 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Unilateral Hypertrophy: Anti-Rotation",
-        "modality": "Hypertrophy",
-        "focus": "Conditioning",
+        "modality": "Strength",
+        "focus": "Hypertrophy",
         "description": "Building muscle while fixing imbalances. Single-arm presses and single-leg split squats. Great for running stability.",
         "structure": [
             {"name": "Stability Flow", "repeat_count": 1, "steps": [{"name": "Bird Dogs/Plank", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -53,8 +53,8 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Shoulder & Upper Back Durability",
-        "modality": "Hypertrophy",
-        "focus": "Volume",
+        "modality": "Strength",
+        "focus": "Hypertrophy",
         "description": "The 'Posture Fixer'. High reps of face pulls, lateral raises, and shrugs. Essential for long hours on the bike.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Shoulder CARs", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -66,8 +66,8 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "The Finisher: Core & Carry",
-        "modality": "Hypertrophy",
-        "focus": "Metabolic Stress",
+        "modality": "Strength",
+        "focus": "Hypertrophy",
         "description": "Building thick core muscle. Heavy farmers carries paired with weighted hollow holds and planks.",
         "structure": [
             {"name": "Core Activation", "repeat_count": 1, "steps": [{"name": "Hollow Holds", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -79,7 +79,7 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Bicep & Forearm: Grip Strength",
-        "modality": "Hypertrophy",
+        "modality": "Strength",
         "focus": "Hypertrophy",
         "description": "Direct grip and arm work. High-volume curls and wrist rollers to assist with sled pulls and carries.",
         "structure": [
@@ -92,8 +92,8 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Tricep & Chest: Pressing Volume",
-        "modality": "Hypertrophy",
-        "focus": "Mechanical Tension",
+        "modality": "Strength",
+        "focus": "Hypertrophy",
         "description": "Building a powerful push. High-volume floor presses and close-grip pushups.",
         "structure": [
             {"name": "Activation", "repeat_count": 1, "steps": [{"name": "Crossover Pushups", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -105,8 +105,8 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Functional Leg Pump",
-        "modality": "Hypertrophy",
-        "focus": "Volume",
+        "modality": "Strength",
+        "focus": "Hypertrophy",
         "description": "The ultimate lung buster for the legs. High-rep reverse lunges and calf raises.",
         "structure": [
             {"name": "Prep", "repeat_count": 1, "steps": [{"name": "Leg Swings", "duration_mins": 10, "intensity_factor": 0.3}]},
@@ -118,7 +118,7 @@ HYPERTROPHY_LIBRARY = [
     },
     {
         "title": "Upper Body Density: Vertical Pull/Push",
-        "modality": "Hypertrophy",
+        "modality": "Strength",
         "focus": "Hypertrophy",
         "description": "Building thickness in the lats and shoulders. Lat pulldowns (or rows) paired with DB overhead press.",
         "structure": [

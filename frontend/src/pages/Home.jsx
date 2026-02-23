@@ -39,11 +39,9 @@ function Home() {
   } = usePlanner();
 
   const [goal, setGoal] = useState(
-    `Example: Focus on running aerobic threshold traiing with regular low intensity days. 
-
-Have my high intensity running days on Monday and Wednesdays, Cycling is the best form of low intensity training for me.
-
-I also want to do at least two Hypertrophy sessions too per week.`,
+    `Example: Focus on running aerobic threshold running. Have my high intensity running days on Monday and Thursday.
+    
+I want my strength sessions to be on Tuesdays and Fridays. Wednesday as my rest day. Cycling is the best form of low intensity training for me add this on the remaining days.`,
   );
   const [selectedDay, setSelectedDay] = useState(null);
 
@@ -237,7 +235,7 @@ I also want to do at least two Hypertrophy sessions too per week.`,
                     Coach's <span className="text-hybrid-neon">Logic</span>
                   </h3>
                   <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] leading-none">
-                    Automated Neural Analysis
+                    Automated Analysis
                   </p>
                 </div>
               </div>
@@ -248,7 +246,7 @@ I also want to do at least two Hypertrophy sessions too per week.`,
               </div>
               <div className="mt-8 flex items-center gap-3 text-[10px] font-black text-zinc-700 uppercase tracking-[0.2em]">
                 <div className="w-1.5 h-1.5 bg-hybrid-neon rounded-full animate-pulse shadow-[0_0_8px_#ccff00]" />
-                Llama 3.3 Reasoning Engine Active
+                Llama 3.3 Engine
               </div>
             </div>
           </div>

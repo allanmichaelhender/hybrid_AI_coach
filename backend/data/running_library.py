@@ -16,7 +16,7 @@ RUNNING_LIBRARY = [
     {
         "title": "Lactate Threshold Cruise",
         "modality": "Running",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "Building the 'Diesel Engine'. Sustained effort at 1-hour race pace (comfortably hard) to push back the fatigue point.",
         "structure": [
             {"name": "Ramp Up", "repeat_count": 1, "steps": [{"name": "Movement Prep", "duration_mins": 10, "intensity_factor": 0.4}]},
@@ -29,7 +29,7 @@ RUNNING_LIBRARY = [
     {
         "title": "Hill Power Repeats",
         "modality": "Running",
-        "focus": "Power",
+        "focus": "Anaerobic",
         "description": "Strength work for runners. Short, steep hill sprints to build glute and calf power while sparing joint impact.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Dynamic Mobility", "duration_mins": 15, "intensity_factor": 0.4}]},
@@ -65,7 +65,7 @@ RUNNING_LIBRARY = [
     {
         "title": "Tempo Progression",
         "modality": "Running",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "Start easy, finish hard. Every 15 minutes increase the pace until you hit 10k race intensity for the final block.",
         "structure": [
             {"name": "Progression Blocks", "repeat_count": 4, "steps": [
@@ -76,7 +76,7 @@ RUNNING_LIBRARY = [
     {
         "title": "Post-Leg Day Recovery Flush",
         "modality": "Running",
-        "focus": "Recovery",
+        "focus": "Aerobic Low",
         "description": "The 'Shakeout'. Very low intensity jog to clear metabolic waste from heavy squats without adding impact stress.",
         "structure": [
             {"name": "Recovery Flush", "repeat_count": 1, "steps": [{"name": "Slow Social Pace", "duration_mins": 40, "intensity_factor": 0.4}]},
@@ -86,7 +86,7 @@ RUNNING_LIBRARY = [
     {
         "title": "Monash 1km Repeats",
         "modality": "Running",
-        "focus": "Threshold",
+        "focus": "Aerobic High",
         "description": "Building pacing discipline. 1000m repeats at 5k goal pace. Focus on consistent splits as the sets progress.",
         "structure": [
             {"name": "Warmup", "repeat_count": 1, "steps": [{"name": "Jog + Strides", "duration_mins": 10, "intensity_factor": 0.5}]},
@@ -100,7 +100,7 @@ RUNNING_LIBRARY = [
     {
         "title": "Strides & Skills",
         "modality": "Running",
-        "focus": "Endurance",
+        "focus": "Aerobic Low",
         "description": "A light aerobic run punctuated by 20-second technique 'strides'. Focus on mid-foot strike and posture.",
         "structure": [
             {"name": "Aerobic Base", "repeat_count": 5, "steps": [
