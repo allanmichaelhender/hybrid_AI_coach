@@ -20,12 +20,12 @@ Current Calendar:
 {calendar_xml}
 
 Goal: {user_goal}
-Scope: {request_scope} (Target Day: {target_day})
 </context>
 
 <task>
-Analyze gaps and provide reasoning in <thought> tags.
-Then, output search intents: [DAY_INDEX]: [MODALITY] | [FOCUS] | [VECTOR QUERY]
+Your response will contain two parts:
+1. <ai_reasoning>: Explain how the plan was constructed and how it achieves the user's goal.
+2. <planned_workouts>: Provide the final structured update for the calendar.
 </task>
 """
 

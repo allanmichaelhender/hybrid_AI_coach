@@ -28,7 +28,7 @@ class CalendarRequest(BaseModel):
 
 class CalendarUpdateResponse(BaseModel):
     updated_calendar: List[CalendarDay]
-    coach_reasoning: List[str]
+    coach_reasoning: str
 
 class SavePlanRequest(BaseModel):
     plan_name: Optional[str] = "My Hybrid Block"

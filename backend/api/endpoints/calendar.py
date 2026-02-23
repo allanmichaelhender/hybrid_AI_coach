@@ -27,14 +27,14 @@ async def ai_suggest_plan(
     # plan_data.model_dump() converts the Pydantic object to a clean dict for the Agent
     initial_state = plan_data.model_dump()
     if "ai_reasoning" not in initial_state:
-        initial_state["ai_reasoning"] = []
+        initial_state["ai_reasoning"] = ""
 
     # 2. RUN THE AGENT (The 'Thinking' phase)
     final_state = await agent_app.ainvoke(initial_state)
 
     if final_state.get("ai_reasoning"):
         print("\n--- 🧠 AI COACH REASONING ---")
-        print(final_state["ai_reasoning"][-1])
+        print(final_state["ai_reasoning"])
         print("-----------------------------\n")
 
     # 3. Return the updated calendar and the AI's 'thoughts'

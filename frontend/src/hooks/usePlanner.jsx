@@ -87,20 +87,9 @@ export const usePlanner = () => {
       setDays(newCalendar);
 
       // B. Capture & Format Reasoning
-      if (response.data.coach_reasoning?.length > 0) {
-        const rawReasoning =
-          response.data.coach_reasoning[
-            response.data.coach_reasoning.length - 1
-          ];
-
-        // ✨ PRO MOVE: Regex to remove the [0]: Modality search intents
-        // This leaves only the natural language explanation for the user.
-        const cleanReasoning = rawReasoning
-          .replace(/\[\d+\].*?\|.*?\|.*?\n?/g, "") // Removes search intent lines
-          .replace(/Search Intents:?\n?/gi, "") // Removes the header
-          .trim();
-
-        setReasoning(cleanReasoning);
+      if (response.data.coach_reasoning) {
+    
+        setReasoning(response.data.coach_reasoning);
       }
 
       return { success: true };

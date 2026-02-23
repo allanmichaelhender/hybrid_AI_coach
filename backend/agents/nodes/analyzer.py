@@ -36,8 +36,11 @@ async def analyzer_node(state: AgentState):
         "user_goal": state["user_goal"],
     })
 
+    ai_reasoning = response.ai_reasoning
+    print(ai_reasoning)
+
     # 5. Return both the text for the UI and the data for the next node
     return {
-        "ai_reasoning": [w.vector_query for w in response.workouts],
-        "planned_workouts": [w.dict() for w in response.workouts]
+        "ai_reasoning": response.ai_reasoning,
+        "planned_workouts": [w.dict() for w in response.planned_workouts]
     }

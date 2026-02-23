@@ -12,7 +12,9 @@ class PlannedWorkout(BaseModel):
     vector_query: str
 
 class PlanAnalysis(BaseModel):
-    workouts: List[PlannedWorkout]
+    planned_workouts: List[PlannedWorkout]
+    ai_reasoning: str = Field("Step-by-step logic for the plan")
+
 
 
 def replace_list(left: list, right: list) -> list:
