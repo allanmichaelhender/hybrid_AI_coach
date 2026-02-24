@@ -3,7 +3,7 @@ from sqlalchemy import String, Float, Text
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 from pgvector.sqlalchemy import Vector
-from database.base import Base
+from database.base_class import Base
 
 class Workout(Base):
     __tablename__ = "workouts"
