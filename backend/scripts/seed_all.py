@@ -11,7 +11,7 @@ from api.services.tss_calc import calculate_complex_tss
 from sqlalchemy import delete
 
 from models.user import User
-from models.plan import UserPlan  # 👈 This is the missing piece
+from models.plan import UserPlan  
 from models.workout import Workout
 
 

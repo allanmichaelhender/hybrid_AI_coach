@@ -41,11 +41,10 @@ class HybridWorkoutBase(BaseModel):
     structure: List[WorkoutBlock]
 
 class HybridWorkoutCreate(HybridWorkoutBase):
-    """Used when creating a workout (e.g. in your setup script)"""
     pass
 
 class HybridWorkoutRead(HybridWorkoutBase):
-    id: uuid.UUID # Changed from str to uuid.UUID to match our models
+    id: uuid.UUID 
     calculated_tss: float
 
     @model_validator(mode='before')

@@ -20,7 +20,6 @@ class CalendarDay(BaseModel):
     is_user_locked: bool = False
 
 class CalendarRequest(BaseModel):
-    # This tells Pydantic: "I expect a list of the Day objects we defined above"
     calendar: List[CalendarDay] 
     cycle_length: int = Field(default=7, ge=7, le=14)
     user_goal: str
@@ -33,19 +32,16 @@ class CalendarUpdateResponse(BaseModel):
 class SavePlanRequest(BaseModel):
     plan_name: Optional[str] = "My Hybrid Block"
     user_goal: str
-    calendar_data: List[CalendarDay] # 👈 This validates the 14-day block
+    calendar_data: List[CalendarDay] 
     coach_reasoning: Optional[str] = None
 
 class SavePlanResponse(BaseModel):
     id: UUID
     plan_name: Optional[str]
     user_goal: str
-    # 🧠 This matches your JSONB column in Neon
     calendar_data: List[CalendarDay] 
     coach_reasoning: Optional[str]
     created_at: datetime
 
-    # 🚀 THE "MAGIC" SETTING: 
-    # This allows Pydantic to convert SQLAlchemy models into JSON automatically
     model_config = ConfigDict(from_attributes=True)
 
