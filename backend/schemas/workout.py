@@ -1,9 +1,10 @@
 from enum import Enum
-from typing import List, Optional, Any
-from pydantic import BaseModel, Field, model_validator
+from typing import List, Optional
+from pydantic import BaseModel, Field, computed_field, ConfigDict
 from api.services.tss_calc import calculate_complex_tss
 import uuid
 
+# Using enum forces the fixed choices listed
 class Modality(str, Enum):
     RUNNING = "Running"
     CYCLING = "Cycling"
@@ -21,6 +22,7 @@ class Focus(str, Enum):
     STRENGTH = "Strength"
     REST = "Rest"
 
+# We use field to add restrictions to the data, remember ... means required
 class WorkoutStep(BaseModel):
     name: str
     duration_mins: int = Field(..., ge=1, le=60)
@@ -45,31 +47,12 @@ class HybridWorkoutCreate(HybridWorkoutBase):
 
 class HybridWorkoutRead(HybridWorkoutBase):
     id: uuid.UUID 
-    calculated_tss: float
 
-    @model_validator(mode='before')
-    @classmethod
-    def compute_tss(cls, data: Any) -> Any:
-        """
-        If the data coming from the DB/API doesn't have a TSS, 
-        or if we want to verify it, we calculate it here.
-        """
-        # When coming from SQLAlchemy 'from_attributes', 'data' might be an object
-        structure = getattr(data, "structure", None) or data.get("structure")
-        modality = getattr(data, "modality", None) or data.get("modality")
+    # Adding our computed tss value as a field, we have the required attributes because of how the classes are inherited
+    @computed_field
+    @property
+    def calculated_tss(self) -> float:
+        return calculate_complex_tss(self.structure, self.modality)
 
-        if structure and modality:
-            # We use our shared service logic
-            computed = calculate_complex_tss(structure, modality)
-            
-            # If the data is a dict (from API input)
-            if isinstance(data, dict):
-                data["calculated_tss"] = computed
-            # If it's an object (from DB) we just ensure the field matches
-            else:
-                setattr(data, "calculated_tss", computed)
-                
-        return data
-
-    class Config:
-        from_attributes = True
+    # Allows pydantic to look into object attributes to find the entries it requires, allows pydantic to understand objects
+    model_config = ConfigDict(from_attributes=True)

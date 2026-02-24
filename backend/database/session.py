@@ -1,9 +1,10 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from core.config import settings
-from database.base import Base
 
+# Creating the connection engine, pool_pre_ping pings the db to confirm liveliness
 engine = create_async_engine(str(settings.DATABASE_URL), pool_pre_ping=True)
 
+# Code to create individual database sessions
 AsyncSessionLocal = async_sessionmaker(
     bind=engine, 
     autocommit=False, 

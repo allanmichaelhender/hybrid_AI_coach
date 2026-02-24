@@ -10,13 +10,9 @@ import selectors
 # Tell python to treat the cwd (/backend) as the root dir rather than the location of this env file
 sys.path.insert(0, os.getcwd())
 
+# All the models are imported into database.base, then imported into here for Alembic to see
 from core.config import settings
-from database.base_class import Base
-
-# Importing models to ensure they are registered on Base.metadata
-from models.user import User 
-from models.plan import UserPlan
-from models.workout import Workout
+from database.base import Base
 target_metadata = Base.metadata
 
 # Setting up logging of alembic migrations to the terminal

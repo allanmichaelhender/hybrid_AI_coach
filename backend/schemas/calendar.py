@@ -23,7 +23,6 @@ class CalendarRequest(BaseModel):
     calendar: List[CalendarDay] 
     cycle_length: int = Field(default=7, ge=7, le=14)
     user_goal: str
-    request_scope: str = "bulk"
 
 class CalendarUpdateResponse(BaseModel):
     updated_calendar: List[CalendarDay]
