@@ -78,14 +78,8 @@ async def refresh_database():
 
 if __name__ == "__main__":
     print("🚀 Starting Atomic Refresh of 'workouts' table...")
-    
-    # 1. Setup the Selector for stable Async execution on GCP
-    selector = selectors.SelectSelector()
-    loop_factory = lambda: asyncio.SelectorEventLoop(selector)
-    
     try:
-        # 2. Run the refresh with the custom loop factory
-        asyncio.run(refresh_database(), loop_factory=loop_factory)
+        asyncio.run(refresh_database())
         print("🏁 Refresh Complete.")
     except Exception as e:
         print(f"⚠️  Fatal Script Error: {e}")

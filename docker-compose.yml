@@ -14,6 +14,18 @@ services:
       - "5432:5432"
     restart: unless-stopped
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: hybrid_coach_pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+
   backend:
     build:
       context: .
@@ -26,6 +38,7 @@ services:
     env_file:
       - ./backend/.env
     environment:
+      - PYTHONPATH=.
       - DATABASE_URL=postgresql+asyncpg://user:password@db:5432/hybrid_coach
     depends_on:
       - db
@@ -39,10 +52,11 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules # Prevents host node_modules from overwriting container's
+      - ./frontend:/app/frontend # Fixed: was /app
+      - /app/frontend/node_modules # Fixed: ensures container-side modules are used
+    working_dir: /app/frontend # Explicitly set the working directory
     environment:
-      - CHOKIDAR_USEPOLLING=true # Ensures hot-reloading works reliably
+      - CHOKIDAR_USEPOLLING=true
     restart: unless-stopped
 
 volumes:
