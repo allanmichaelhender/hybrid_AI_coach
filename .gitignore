@@ -1,3 +1,4 @@
 .env
 backend/.env
 .venv
+docker-compose.override.yml
