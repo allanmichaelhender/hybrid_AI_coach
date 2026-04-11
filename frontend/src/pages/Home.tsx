@@ -50,7 +50,7 @@ function Home(): React.JSX.Element {
   } = usePlanner();
 
   const [goal, setGoal] = useState<string>(
-    `Example: Focus on running aerobic threshold running. Have my high intensity running days on Monday and Thursday.
+    `Example: Focus on aerobic threshold running. Have my high intensity running days on Monday and Thursday.
     
 I want my strength sessions to be on Tuesdays and Fridays. Wednesday as my rest day. Cycling is the best form of low intensity training for me add this on the remaining days.`,
   );
