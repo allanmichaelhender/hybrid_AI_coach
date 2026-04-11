@@ -20,8 +20,8 @@ ENV VITE_API_URL=$VITE_API_URL
 # Build the frontend for production
 RUN npm run build
 
-# Copy built files to a location that nginx can access
-RUN mkdir -p /app/dist && cp -r dist/* /app/dist/
+# Copy built files to a location that nginx can access, clearing old files first
+RUN rm -rf /app/dist && mkdir -p /app/dist && cp -r dist/* /app/dist/
 
 # Expose the default Vite port (optional, for debugging)
 EXPOSE 5173
