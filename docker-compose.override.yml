@@ -1,0 +1,16 @@
+services:
+  frontend:
+    # 1. Override the build command to run dev server instead of build
+    command: npm run dev -- --host
+    # 2. Expose Vite's port to your host machine
+    ports:
+      - "5173:5173"
+    # 3. Ensure your volumes are set for hot-reloading (already in your base)
+
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules # Prevents host modules from clashing
+
+  backend:
+    ports:
+      - "8000:8000"  # Allows localhost:8000 to reach the container
