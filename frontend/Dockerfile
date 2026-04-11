@@ -20,11 +20,8 @@ ENV VITE_API_URL=$VITE_API_URL
 # Build the frontend for production
 RUN npm run build
 
-# Copy built files to a location that nginx can access, clearing old files first
-RUN rm -rf /app/dist && mkdir -p /app/dist && cp -r dist/* /app/dist/
-
 # Expose the default Vite port (optional, for debugging)
 EXPOSE 5173
 
-# Define the command to keep container running with built files
-CMD ["sh", "-c", "while true; do sleep 30; done"]
+# Define the command to clear volume and copy files at runtime
+CMD ["sh", "-c", "rm -rf /app/dist/* && cp -r /app/frontend/dist/* /app/dist/ && while true; do sleep 30; done"]
