@@ -50,7 +50,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        - VITE_API_URL=http://hybrid-hour.ddnsfree.com/api
+        - VITE_API_URL=http://hybrid-hour.ddnsfree.com/api/v1
     container_name: hybrid_coach_frontend
     ports:
       - "5173:5173"
