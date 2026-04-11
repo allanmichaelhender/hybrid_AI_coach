@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the default Vite port
-EXPOSE 5174
+EXPOSE 5173
 
 # Define the command to run your app's development server
 # The --host flag is important to expose the server to the Docker network

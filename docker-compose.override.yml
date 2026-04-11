@@ -8,9 +8,9 @@ services:
     # 3. Ensure your volumes are set for hot-reloading (already in your base)
 
     volumes:
-      - ../frontend:/app
-      - /app/node_modules # Prevents host modules from clashing
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules # Prevents host modules from clashing
 
   backend:
     ports:
-      - "8000:8000"  # Allows localhost:8000 to reach the container
+      - "8000:8000" # Allows localhost:8000 to reach the container

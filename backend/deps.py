@@ -16,6 +16,7 @@ async def get_db():
         # We use yield to keep the session open until the endpoint tells us to close, remember we pair with Depends to do this
         yield session
 
+
 # Code to grab the access token from the authorization header
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login/access-token")
 
@@ -45,5 +46,32 @@ async def get_current_user(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
+
+    return user
+
+
+async def get_current_user_optional(
+    db: Session = Depends(get_db),
+    token: str = Depends(
+        OAuth2PasswordBearer(tokenUrl="/auth/login/access-token", auto_error=False)
+    ),
+) -> User | None:
+    try:
+        payload = jwt.decode(
+            token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+        )
+
+        # Data validation step
+        token_data = TokenPayload(**payload)
+
+        user_id = UUID(token_data.sub)
+
+    except (jwt.PyJWTError, ValueError):
+        return None
+
+    user = await get_user_by_id(db, id=user_id)
+
+    if not user:
+        return None
 
     return user

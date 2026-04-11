@@ -1,6 +1,11 @@
 import { X, Clock, Zap, Activity, Info } from "lucide-react";
+import type { WorkoutModalProps } from "@/types";
 
-export const WorkoutModal = ({ day, isOpen, onClose }) => {
+function WorkoutModal({
+  day,
+  isOpen,
+  onClose,
+}: WorkoutModalProps): React.JSX.Element | null {
   if (!isOpen || !day) return null;
 
   // DEBUGGING: Remove this once you see data in the console
@@ -40,9 +45,7 @@ export const WorkoutModal = ({ day, isOpen, onClose }) => {
               <Info className="w-3 h-3" /> Coach's Notes
             </h4>
             <p className="text-zinc-300 leading-relaxed font-medium">
-              {day.description ||
-                day.workout_description ||
-                "No specific notes for this session."}
+              {day.description || "No specific notes for this session."}
             </p>
           </div>
 
@@ -78,9 +81,8 @@ export const WorkoutModal = ({ day, isOpen, onClose }) => {
                     <div className="flex items-center gap-6">
                       <div className="flex items-center gap-1.5 text-zinc-500">
                         <Clock className="w-3.5 h-3.5" />
-                        {/* Check if it's duration_mins or duration (common DB mismatch) */}
                         <span className="text-xs font-bold">
-                          {step.duration_mins || step.duration || 0}m
+                          {step.duration_mins || 0}m
                         </span>
                       </div>
                       <div
@@ -101,18 +103,18 @@ export const WorkoutModal = ({ day, isOpen, onClose }) => {
         </div>
 
         {/* Summary Footer */}
-        <div className="p-6 bg-zinc-950/50 border-t border-zinc-800 flex justify-between">
+        <div className="p-6 bg-zinc-950/50 border-t border-zinc-800 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Zap className="w-4 h-4 text-hybrid-neon" />
             <span className="text-xs font-bold text-zinc-400 uppercase tracking-tighter">
               Estimated TSS:{" "}
-              <span className="text-white">
-                {day.tss || day.calculated_tss || 0}
-              </span>
+              <span className="text-white">{Math.round(day.tss || 0)}</span>
             </span>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
+
+export default WorkoutModal;

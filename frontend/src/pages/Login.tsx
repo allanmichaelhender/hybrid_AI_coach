@@ -1,8 +1,8 @@
-// src/pages/Login.jsx
+// src/pages/Login.tsx
 import AuthForm from "../features/auth/AuthForm";
 import { Zap } from "lucide-react";
 
-function Login() {
+function Login(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6 selection:bg-hybrid-neon selection:text-black">
       {/* Optional: Branding floating above the form */}

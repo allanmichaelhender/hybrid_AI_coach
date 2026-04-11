@@ -7,8 +7,81 @@ from deps import get_current_user, get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 from sqlalchemy import select, desc
+from typing import List
+from pydantic import BaseModel, ConfigDict
+from datetime import datetime
 
 router = APIRouter()
+
+
+class PlanSummary(BaseModel):
+    id: UUID
+    plan_name: str
+    user_goal: str
+    created_at: datetime
+    total_tss: float
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# Get all plans for current user
+@router.get("/plans", response_model=List[PlanSummary])
+async def get_user_plans(
+    db: AsyncSession = Depends(get_db), current_user=Depends(get_current_user)
+):
+    """Get list of all saved plans for the current user."""
+    query = (
+        select(UserPlan)
+        .where(UserPlan.user_id == current_user.id)
+        .order_by(desc(UserPlan.created_at))
+    )
+
+    result = await db.execute(query)
+    plans = result.scalars().all()
+
+    # Calculate total TSS for each plan
+    plan_summaries = []
+    for plan in plans:
+        calendar_data = plan.calendar_data or []
+        total_tss = sum(day.get("tss", 0) for day in calendar_data)
+
+        plan_summaries.append(
+            PlanSummary(
+                id=plan.id,
+                plan_name=plan.plan_name or "Unnamed Plan",
+                user_goal=plan.user_goal or "",
+                created_at=plan.created_at,
+                total_tss=total_tss,
+            )
+        )
+
+    return plan_summaries
+
+
+# Get specific plan by ID
+@router.get("/plans/{plan_id}", response_model=SavePlanResponse)
+async def get_plan_by_id(
+    plan_id: UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
+    """Get a specific plan by ID."""
+    query = (
+        select(UserPlan)
+        .where(UserPlan.id == plan_id)
+        .where(UserPlan.user_id == current_user.id)
+    )
+
+    result = await db.execute(query)
+    plan = result.scalar_one_or_none()
+
+    if not plan:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Plan not found"
+        )
+
+    return plan
+
 
 # Our suggest endpoint to read in user input and current state to create the workout plan
 @router.post("/suggest", response_model=CalendarUpdateResponse)

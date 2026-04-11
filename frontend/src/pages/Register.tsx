@@ -1,9 +1,9 @@
-// src/pages/Register.jsx
+// src/pages/Register.tsx
 import AuthForm from "../features/auth/AuthForm";
 import { Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
-function Register() {
+function Register(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6 selection:bg-hybrid-neon selection:text-black">
       {/* Small Branding Header */}

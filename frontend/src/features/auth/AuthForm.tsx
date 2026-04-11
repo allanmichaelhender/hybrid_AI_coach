@@ -1,21 +1,27 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../api/client"; // Use your configured axios client
-import { useAuth } from "../../hooks/useAuth"; // Use your context!
+import api from "../../api/client";
+import { useAuth } from "../../hooks/useAuth";
 import { Loader2, Zap } from "lucide-react";
 
-function AuthForm({ method }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  
+interface AuthFormProps {
+  method: "login" | "register";
+}
+
+function AuthForm({ method }: AuthFormProps): React.JSX.Element {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
   const navigate = useNavigate();
-  const { login } = useAuth(); // Destructure the login function
+  const { login } = useAuth();
 
   const isLogin = method === "login";
   const title = isLogin ? "Welcome Back" : "Create Account";
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault();
     setLoading(true);
 
@@ -27,9 +33,9 @@ function AuthForm({ method }) {
         formData.append("password", password);
 
         const res = await api.post("/auth/login/access-token", formData);
-        
+
         // Use the context's login to set tokens and update global state
-        login(res.data.access_token, res.data.refresh_token);
+        login(res.data.access_token);
         navigate("/");
       } else {
         // Registration uses standard JSON
@@ -38,8 +44,9 @@ function AuthForm({ method }) {
         navigate("/login");
       }
     } catch (error) {
-      const detail = error.response?.data?.detail || "Something went wrong";
-      alert(typeof detail === 'string' ? detail : JSON.stringify(detail));
+      const detail =
+        (error as any).response?.data?.detail || "Something went wrong";
+      alert(typeof detail === "string" ? detail : JSON.stringify(detail));
     } finally {
       setLoading(false);
     }
@@ -52,7 +59,9 @@ function AuthForm({ method }) {
           <Zap className="w-8 h-8 text-hybrid-neon fill-current" />
         </div>
         <h1 className="text-2xl font-black text-white">{title}</h1>
-        <p className="text-zinc-500 text-sm mt-2">Hybrid Workouts in 60 minutes</p>
+        <p className="text-zinc-500 text-sm mt-2">
+          Hybrid Workouts in 60 minutes
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -77,21 +86,29 @@ function AuthForm({ method }) {
           />
         </div>
 
-        <button 
-          className="w-full bg-hybrid-neon text-black font-black py-4 rounded-xl hover:brightness-110 active:scale-[0.98] transition-all flex justify-center items-center gap-2" 
+        <button
+          className="w-full bg-hybrid-neon text-black font-black py-4 rounded-xl hover:brightness-110 active:scale-[0.98] transition-all flex justify-center items-center gap-2"
           type="submit"
           disabled={loading}
         >
-          {loading ? <Loader2 className="animate-spin w-5 h-5" /> : (isLogin ? "LOG IN" : "REGISTER")}
+          {loading ? (
+            <Loader2 className="animate-spin w-5 h-5" />
+          ) : isLogin ? (
+            "LOG IN"
+          ) : (
+            "REGISTER"
+          )}
         </button>
       </form>
 
       <div className="mt-8 text-center">
-        <button 
+        <button
           onClick={() => navigate(isLogin ? "/register" : "/login")}
           className="text-zinc-500 text-sm hover:text-white transition-colors"
         >
-          {isLogin ? "New to Hybrid Hour? Create an account" : "Already have an account? Log in"}
+          {isLogin
+            ? "New to Hybrid Hour? Create an account"
+            : "Already have an account? Log in"}
         </button>
       </div>
     </div>
