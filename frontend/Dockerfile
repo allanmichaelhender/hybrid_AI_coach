@@ -13,9 +13,14 @@ RUN npm install
 # Copy the rest of the application's code into the container
 COPY . .
 
-# Expose the default Vite port
+# Build the frontend for production
+RUN npm run build
+
+# Copy built files to a location that nginx can access
+RUN mkdir -p /app/dist && cp -r dist/* /app/dist/
+
+# Expose the default Vite port (optional, for debugging)
 EXPOSE 5173
 
-# Define the command to run your app's development server
-# The --host flag is important to expose the server to the Docker network
-CMD ["npm", "run", "dev", "--", "--host"]
+# Define the command to keep container running with built files
+CMD ["sh", "-c", "while true; do sleep 30; done"]
