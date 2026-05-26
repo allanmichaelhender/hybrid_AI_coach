@@ -35,7 +35,7 @@ services:
       - "8000:8000"
     environment:
       - PYTHONPATH=./backend
-      - DATABASE_URL=postgresql+asyncpg://neondb_owner:npg_PtufHF9DGc4Z@ep-young-mud-abusao1b-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require
+      - DATABASE_URL=${DATABASE_URL}
       - PROJECT_NAME=${PROJECT_NAME}
       - API_V1_STR=${API_V1_STR}
       - SECRET_KEY=${SECRET_KEY}
