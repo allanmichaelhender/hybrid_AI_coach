@@ -124,7 +124,7 @@ I want my strength sessions to be on Tuesdays and Fridays. Wednesday as my rest 
         </div>
       </nav>
 
-      <main className="p-8 pt-2 max-w-[95vw] mx-auto">
+      <main className="p-8 pt-2 max-w-7xl mx-auto">
         {/* --- 2. HEADER & CYCLE TOGGLE --- */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-6">
           <div className="flex items-center gap-8">
