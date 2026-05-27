@@ -216,7 +216,7 @@ I want my strength sessions to be on Tuesdays and Fridays. Wednesday as my rest 
                   <div className="h-[1px] w-full bg-zinc-800" />
                 </div>
 
-                <div className="grid grid-cols-2 min-[1080px]:grid-cols-3 min-[1340px]:grid-cols-4 min-[1620px]:grid-cols-5 gap-4">
+                <div className="grid grid-cols-2 min-[1080px]:grid-cols-3 min-[1340px]:grid-cols-4 gap-4">
                   {week.map((day) => (
                     <div key={day.day_index} className="flex flex-col gap-2">
                       {/* WEEKDAY LABEL */}
